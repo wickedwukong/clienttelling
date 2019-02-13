@@ -16,14 +16,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Recommendation {
+  String title;
+
+  Recommendation(this.title);
+
+}
+
 class Customer {
   String firstName;
   String lastName;
+  List<Recommendation> recs = new List<Recommendation>();
 
-  Customer(String firstName, String lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
+  Customer(this.firstName, this.lastName, this.recs);
 
   String fullName() {
     return firstName + " " + lastName;
@@ -32,14 +37,14 @@ class Customer {
 
 class RandomWordsState extends State<RandomWords> {
   final _customers = <Customer>[
-    Customer("Joanna", "Biggar"),
-    Customer("Esther", "Jackson"),
-    Customer("Daisy", "Woodward"),
-    Customer("Gabrielle", "John"),
-    Customer("Amy", "Ixer"),
-    Customer("Angela", "Worley"),
-    Customer("Rohina", "Adams"),
-    Customer("Lucy", "Tamley")
+    Customer("Joanna", "Biggar", [Recommendation("Gina Bacconi Brielle Dress, Pink"), Recommendation("Phase Eight Emanuella Floral Printed Dress, Oyster")]),
+    Customer("Esther", "Jackson", [Recommendation("Modern Rarity Ruffle Front Dress, Pink")]),
+    Customer("Daisy", "Woodward", new List<Recommendation>()),
+    Customer("Gabrielle", "John", new List<Recommendation>()),
+    Customer("Amy", "Ixer", new List<Recommendation>()),
+    Customer("Angela", "Worley", new List<Recommendation>()),
+    Customer("Rohina", "Adams", new List<Recommendation>()),
+    Customer("Lucy", "Tamley", new List<Recommendation>())
   ];
   final _saved = new Set<Customer>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
@@ -57,31 +62,26 @@ class RandomWordsState extends State<RandomWords> {
           else
             return _buildRow(_customers.last);
         },
-        itemCount: _customers.length * 2
-    );
+        itemCount: _customers.length * 2);
   }
 
   Widget _buildRow(Customer customer) {
-    final bool alreadySaved = _saved.contains(customer);
     return ListTile(
       title: Text(
         customer.fullName(),
         style: _biggerFont,
       ),
-      trailing: new Icon(
-        // Add the lines from here...
-        alreadySaved ? Icons.arrow_forward : Icons.arrow_forward,
-        color: alreadySaved ? Colors.red : null,
-      ),
+      trailing: new Icon(Icons.arrow_forward),
       onTap: () {
         Navigator.of(context).push(
           new MaterialPageRoute<void>(
             builder: (BuildContext context) {
-              final Iterable<ListTile> tiles = _saved.map(
-                    (Customer customer) {
+
+              final Iterable<ListTile> tiles = customer.recs.map(
+                    (Recommendation rec) {
                   return new ListTile(
                     title: new Text(
-                      customer.fullName(),
+                      rec.title,
                       style: _biggerFont,
                     ),
                   );
@@ -141,7 +141,6 @@ class RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -151,9 +150,9 @@ class RandomWordsState extends State<RandomWords> {
               height: 32,
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('Welcome, Tom Monetto'))
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Welcome, Tom Monetto'))
           ],
-
         ),
         actions: <Widget>[
           new IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved),
