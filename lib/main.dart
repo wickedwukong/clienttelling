@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
 
 class Recommendation {
   String title;
+  String image;
 
-  Recommendation(this.title);
-
+  Recommendation(this.title, this.image);
 }
 
 class Customer {
@@ -37,14 +37,18 @@ class Customer {
 
 class RandomWordsState extends State<RandomWords> {
   final _customers = <Customer>[
-    Customer("Joanna", "Biggar", [Recommendation("Gina Bacconi Brielle Dress, Pink"), Recommendation("Phase Eight Emanuella Floral Printed Dress, Oyster")]),
-    Customer("Esther", "Jackson", [Recommendation("Modern Rarity Ruffle Front Dress, Pink")]),
-    Customer("Daisy", "Woodward", new List<Recommendation>()),
-    Customer("Gabrielle", "John", new List<Recommendation>()),
-    Customer("Amy", "Ixer", new List<Recommendation>()),
-    Customer("Angela", "Worley", new List<Recommendation>()),
-    Customer("Rohina", "Adams", new List<Recommendation>()),
-    Customer("Lucy", "Tamley", new List<Recommendation>())
+    Customer("Joanna", "Biggar", [
+      Recommendation("Gina Bacconi Brielle Dress, Pink", "1.jpeg"),
+      Recommendation("Phase Eight Emanuella Floral Printed Dress, Oyster", "2.jpeg")
+    ]),
+    Customer("Esther", "Jackson",
+        [Recommendation("Modern Rarity Ruffle Front Dress, Pink", "3.jpeg")]),
+    Customer("Daisy", "Woodward", []),
+    Customer("Gabrielle", "John", []),
+    Customer("Amy", "Ixer", []),
+    Customer("Angela", "Worley", []),
+    Customer("Rohina", "Adams", []),
+    Customer("Lucy", "Tamley", [])
   ];
   final _saved = new Set<Customer>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
@@ -76,15 +80,18 @@ class RandomWordsState extends State<RandomWords> {
         Navigator.of(context).push(
           new MaterialPageRoute<void>(
             builder: (BuildContext context) {
-
               final Iterable<ListTile> tiles = customer.recs.map(
-                    (Recommendation rec) {
+                (Recommendation rec) {
                   return new ListTile(
-                    title: new Text(
-                      rec.title,
-                      style: _biggerFont,
-                    ),
-                  );
+                      title: new Text(
+                        rec.title,
+                        style: _biggerFont,
+                      ),
+                      trailing: Image.asset(
+                        'assets/images/${rec.image}',
+                        fit: BoxFit.contain,
+                        height: 32,
+                      ));
                 },
               );
               final List<Widget> divided = ListTile.divideTiles(
