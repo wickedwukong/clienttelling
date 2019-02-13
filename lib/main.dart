@@ -50,15 +50,13 @@ class RandomWordsState extends State<RandomWords> {
     Customer("Rohina", "Adams", []),
     Customer("Lucy", "Tamley", [])
   ];
-  final _saved = new Set<Customer>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
-  Widget _buildSuggestions() {
+  Widget _buildCutomers() {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: /*1*/ (context, i) {
           if (i.isOdd) return Divider();
-          /*2*/
 
           final index = i ~/ 2;
           if (index < _customers.length)
@@ -100,7 +98,6 @@ class RandomWordsState extends State<RandomWords> {
               ).toList();
 
               return new Scaffold(
-                // Add 6 lines from here...
                 appBar: new AppBar(
                   title: Text(customer.fullName()),
                 ),
@@ -113,36 +110,6 @@ class RandomWordsState extends State<RandomWords> {
     );
   }
 
-  void _pushSaved() {
-    Navigator.of(context).push(
-      new MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-            (Customer customer) {
-              return new ListTile(
-                title: new Text(
-                  customer.fullName(),
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return new Scaffold(
-            // Add 6 lines from here...
-            appBar: new AppBar(
-              title: const Text('Saved Suggestions'),
-            ),
-            body: new ListView(children: divided),
-          ); // ... to here.
-        },
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,11 +128,9 @@ class RandomWordsState extends State<RandomWords> {
                 child: Text('Welcome, Tom Monetto'))
           ],
         ),
-        actions: <Widget>[
-          new IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved),
-        ],
+   
       ),
-      body: _buildSuggestions(),
+      body: _buildCutomers(),
     );
   }
 }
