@@ -70,7 +70,7 @@ class RandomWordsState extends State<RandomWords> {
       ),
       trailing: new Icon(
         // Add the lines from here...
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        alreadySaved ? Icons.arrow_forward : Icons.arrow_forward,
         color: alreadySaved ? Colors.red : null,
       ),
       onTap: () {
@@ -121,9 +121,21 @@ class RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome, Tom Monetto'),
+
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/jl.jpg',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+            Container(
+                padding: const EdgeInsets.all(8.0), child: Text('Welcome, Tom Monetto'))
+          ],
+
+        ),
         actions: <Widget>[
-          // Add 3 lines from here...
           new IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved),
         ],
       ),
