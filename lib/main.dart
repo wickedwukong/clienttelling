@@ -22,7 +22,8 @@ class RandomWordsState extends State<RandomWords> {
   final _customers = <Customer>[
     Customer("Joanna", "Biggar", [
       Recommendation("Gina Bacconi Brielle Dress, Pink", "1.jpeg"),
-      Recommendation("Phase Eight Emanuella Floral Printed Dress, Oyster", "2.jpeg")
+      Recommendation(
+          "Phase Eight Emanuella Floral Printed Dress, Oyster", "2.jpeg")
     ]),
     Customer("Esther", "Jackson",
         [Recommendation("Modern Rarity Ruffle Front Dress, Pink", "3.jpeg")]),
@@ -63,7 +64,6 @@ class RandomWordsState extends State<RandomWords> {
     );
   }
 
-
   void _navigateToDisplayRecommendations(Customer customer) {
     {
       Navigator.of(context).push(
@@ -99,24 +99,25 @@ class RandomWordsState extends State<RandomWords> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/images/jl.jpg',
               fit: BoxFit.contain,
+              alignment: Alignment.topLeft,
               height: 32,
             ),
             Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Welcome, Tom Monetto'))
+              padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+              child: Text('Welcome, Tom Monetto'),
+            ),
           ],
         ),
-   
       ),
       body: _buildCustomers(),
     );
