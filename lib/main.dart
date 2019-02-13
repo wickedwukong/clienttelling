@@ -35,7 +35,7 @@ class RandomWordsState extends State<RandomWords> {
   ];
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
-  Widget _buildCutomers() {
+  Widget _buildCustomers() {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: /*1*/ (context, i) {
@@ -118,7 +118,7 @@ class RandomWordsState extends State<RandomWords> {
         ),
    
       ),
-      body: _buildCutomers(),
+      body: _buildCustomers(),
     );
   }
 }
