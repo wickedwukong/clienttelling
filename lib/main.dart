@@ -74,14 +74,34 @@ class RandomWordsState extends State<RandomWords> {
         color: alreadySaved ? Colors.red : null,
       ),
       onTap: () {
-        // Add 9 lines from here...
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(customer);
-          } else {
-            _saved.add(customer);
-          }
-        });
+        Navigator.of(context).push(
+          new MaterialPageRoute<void>(
+            builder: (BuildContext context) {
+              final Iterable<ListTile> tiles = _saved.map(
+                    (Customer customer) {
+                  return new ListTile(
+                    title: new Text(
+                      customer.fullName(),
+                      style: _biggerFont,
+                    ),
+                  );
+                },
+              );
+              final List<Widget> divided = ListTile.divideTiles(
+                context: context,
+                tiles: tiles,
+              ).toList();
+
+              return new Scaffold(
+                // Add 6 lines from here...
+                appBar: new AppBar(
+                  title: Text(customer.fullName()),
+                ),
+                body: new ListView(children: divided),
+              ); // ... to here.
+            },
+          ),
+        );
       },
     );
   }
