@@ -19,7 +19,7 @@ class ClienttellingApp extends StatelessWidget {
 }
 
 class RandomWordsState extends State<RandomWords> {
-  final _customers = <Customer>[
+   _getCustomers () => <Customer>[
     Customer("Joanna", "Biggar", [
       Recommendation("Gina Bacconi Brielle Dress, Pink", "1.jpeg"),
       Recommendation(
@@ -37,18 +37,19 @@ class RandomWordsState extends State<RandomWords> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildCustomers() {
+    final customer = _getCustomers();
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: /*1*/ (context, i) {
           if (i.isOdd) return Divider();
 
           final index = i ~/ 2;
-          if (index < _customers.length)
-            return _buildRow(_customers[index]);
+          if (index < customer.length)
+            return _buildRow(customer[index]);
           else
-            return _buildRow(_customers.last);
+            return _buildRow(customer.last);
         },
-        itemCount: _customers.length * 2);
+        itemCount: customer.length * 2);
   }
 
   Widget _buildRow(Customer customer) {
