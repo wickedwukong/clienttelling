@@ -75,42 +75,47 @@ class RandomWordsState extends State<RandomWords> {
       ),
       trailing: new Icon(Icons.arrow_forward),
       onTap: () {
-        Navigator.of(context).push(
-          new MaterialPageRoute<void>(
-            builder: (BuildContext context) {
-              final Iterable<ListTile> tiles = customer.recs.map(
-                (Recommendation rec) {
-                  return new ListTile(
-                      title: new Text(
-                        rec.title,
-                        style: _biggerFont,
-                      ),
-                      trailing: Image.asset(
-                        'assets/images/${rec.image}',
-                        fit: BoxFit.contain,
-                        height: 32,
-                      ));
-                },
-              );
-              final List<Widget> divided = ListTile.divideTiles(
-                context: context,
-                tiles: tiles,
-              ).toList();
-
-              return new Scaffold(
-                appBar: new AppBar(
-                  title: Text(customer.fullName()),
-                ),
-                body: new ListView(children: divided),
-              ); // ... to here.
-            },
-          ),
-        );
+        _navigateToDisplayRecommendations(customer);
       },
     );
   }
 
 
+  void _navigateToDisplayRecommendations(Customer customer) {
+    {
+      Navigator.of(context).push(
+        new MaterialPageRoute<void>(
+          builder: (BuildContext context) {
+            final Iterable<ListTile> tiles = customer.recs.map(
+                  (Recommendation rec) {
+                return new ListTile(
+                    title: new Text(
+                      rec.title,
+                      style: _biggerFont,
+                    ),
+                    trailing: Image.asset(
+                      'assets/images/${rec.image}',
+                      fit: BoxFit.contain,
+                      height: 32,
+                    ));
+              },
+            );
+            final List<Widget> divided = ListTile.divideTiles(
+              context: context,
+              tiles: tiles,
+            ).toList();
+
+            return new Scaffold(
+              appBar: new AppBar(
+                title: Text(customer.fullName()),
+              ),
+              body: new ListView(children: divided),
+            ); // ... to here.
+          },
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
