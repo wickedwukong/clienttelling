@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:clienttelling/recommendation.dart';
+import 'package:clienttelling/customer.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(ClienttellingApp());
 
-class MyApp extends StatelessWidget {
+class ClienttellingApp extends StatelessWidget {
   // #docregion build
   @override
   Widget build(BuildContext context) {
@@ -13,25 +15,6 @@ class MyApp extends StatelessWidget {
       ),
       home: RandomWords(),
     );
-  }
-}
-
-class Recommendation {
-  String title;
-  String image;
-
-  Recommendation(this.title, this.image);
-}
-
-class Customer {
-  String firstName;
-  String lastName;
-  List<Recommendation> recs = new List<Recommendation>();
-
-  Customer(this.firstName, this.lastName, this.recs);
-
-  String fullName() {
-    return firstName + " " + lastName;
   }
 }
 
